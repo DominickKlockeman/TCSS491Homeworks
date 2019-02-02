@@ -167,6 +167,15 @@ Cube.prototype.constructor = Cube;
 
 Cube.prototype.update = function () {
     if (this.game.space) this.jumping = true;
+    if(this.game.a) {
+        this.x -=3;
+        this.animation = cubeSlideBeginning;
+        console.log("hererererere");
+    }
+    if(this.game.d) {
+        this.x += 3;
+        this.animation = cubeSlideBeginning;
+    }
     if (this.jumping) {
         if (this.jumpAnimation.isDone()) {
             this.jumpAnimation.elapsedTime = 0;
