@@ -32,13 +32,13 @@ Board.prototype.update = function() {
 
         var result = [];
 
-        for (var i=0; i<40; i++) {
+        for (var i=0; i<50; i++) {
             result[i] = [];
             
         }
 
-        for(i = 0; i < 40; i++) {
-            for(j = 0; j < 40; j++) {
+        for(i = 0; i < 50; i++) {
+            for(j = 0; j < 50; j++) {
                 alive = 0;
                 count = numNeighbors(this.cells, i, j) 
 
@@ -65,10 +65,10 @@ Board.prototype.update = function() {
 
 Board.prototype.draw = function(ctx) {
 
-    ctx.rect(0, 0, 800, 800);
+    ctx.rect(0, 0, 1000, 1000);
     ctx.stroke();
-    for(i = 0; i < 40; i++ ) {
-        for(j = 0; j < 40; j++) {
+    for(i = 0; i < 50; i++ ) {
+        for(j = 0; j < 50; j++) {
             ctx.beginPath();
             ctx.rect(i*20, j*20, 20, 20);
             if (this.cells[i][j] == 1) {
@@ -85,9 +85,9 @@ Board.prototype.init = function() {
 
     audio.play();
 
-    for (var i=0; i<40; i++) {
+    for (var i=0; i<50; i++) {
         this.cells[i] = [];
-        for (var j=0; j<40; j++) {
+        for (var j=0; j<50; j++) {
             this.cells[i][j] = 0;
         }
     }
@@ -144,9 +144,9 @@ Board.prototype.init = function() {
 }
 
 function cellAlive(cells, x, y) {
-    if(x < 0 || x > 39) {
+    if(x < 0 || x > 49) {
         return 0;
-    } if(y < 0 || y > 39) {
+    } if(y < 0 || y > 49) {
         return 0;
     } else {
         return cells[x][y];
