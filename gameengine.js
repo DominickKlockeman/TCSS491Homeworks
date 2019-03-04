@@ -28,20 +28,6 @@ Timer.prototype.tick = function () {
     return gameDelta;
 }
 
-function VisibleTimer(game) {
-    this.game = game;
-    Entity.call(this, game, 695, 100);
-}
-
-VisibleTimer.prototype = new Entity();
-VisibleTimer.prototype.constructor = VisibleTimer;
-
-VisibleTimer.prototype.draw = function(ctx) {
-    ctx.font = "24pt Impact";
-    ctx.fillStyle = "red";
-    ctx.fillText(this.game.actualTime.gameTime.toFixed(3), 695, 100);
-}
-
 function GameEngine() {
     this.entities = [];
     this.showOutlines = false;
@@ -51,6 +37,8 @@ function GameEngine() {
     this.wheel = null;
     this.surfaceWidth = null;
     this.surfaceHeight = null;
+    this.pause;
+    this.grid;
 }
 
 GameEngine.prototype.init = function (ctx) {
@@ -59,7 +47,6 @@ GameEngine.prototype.init = function (ctx) {
     this.surfaceHeight = this.ctx.canvas.height;
     this.startInput();
     this.timer = new Timer();
-    this.actualTime = new Timer();
     console.log('game initialized');
 }
 
@@ -76,28 +63,35 @@ GameEngine.prototype.startInput = function () {
     console.log('Starting input');
     var that = this;
 
-    this.ctx.canvas.addEventListener("keydown", function (e) {
-        if (String.fromCharCode(e.which) === ' ') that.space = true;
-        if (String.fromCharCode(e.which) === 'A') that.a = true;
-        if (String.fromCharCode(e.which) === 'D') that.d = true;
+    var getXandY = function (e) {
+        var x = e.clientX - that.ctx.canvas.getBoundingClientRect().left;
+        var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
 
-//        console.log(e);
+        return { x: x, y: y };
+    }
+
+    this.ctx.canvas.addEventListener("mousemove", function (e) {
+        //console.log(getXandY(e));
+        that.mouse = getXandY(e);
+    }, false);
+
+    this.ctx.canvas.addEventListener("click", function (e) {
+        //console.log(getXandY(e));
+        that.click = getXandY(e);
+    }, false);
+
+    this.ctx.canvas.addEventListener("wheel", function (e) {
+        //console.log(getXandY(e));
+        that.wheel = e;
+        //       console.log(e.wheelDelta);
         e.preventDefault();
     }, false);
 
-
-    this.ctx.canvas.addEventListener("keyup", function (e) {
-        if (String.fromCharCode(e.which) === ' ') {
-            that.space = false;
-        } 
-        if (String.fromCharCode(e.which) === 'A') {
-            that.a = false;
-        } 
-        if (String.fromCharCode(e.which) === 'D') {
-            that.d = false;
-        }    
+    this.ctx.canvas.addEventListener("contextmenu", function (e) {
+        //console.log(getXandY(e));
+        that.rightclick = getXandY(e);
         e.preventDefault();
-}, false);
+    }, false);
 
     console.log('Input started');
 }
@@ -124,11 +118,6 @@ GameEngine.prototype.update = function () {
 
         if (!entity.removeFromWorld) {
             entity.update();
-            if (entity instanceof PlayGame) {
-                if (entity.game.running != null && entity.game.running) {
-                    this.actualTime.tick();
-                }
-            }
         }
     }
 
@@ -140,10 +129,17 @@ GameEngine.prototype.update = function () {
 }
 
 GameEngine.prototype.loop = function () {
-    this.clockTick = this.timer.tick();
-    this.update();
+    if(!this.pause) {
+        this.clockTick = this.timer.tick();
+        this.update();
+        this.draw();
+    }
     this.draw();
-    this.space = null;
+    this.grid = globalGrid;
+    this.pause = globalPause;
+    this.click = null;
+    this.rightclick = null;
+    this.wheel = null;
 }
 
 function Entity(game, x, y) {
