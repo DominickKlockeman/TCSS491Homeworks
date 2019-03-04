@@ -1,0 +1,16 @@
+#Title{
+    font-size: 50px;
+}
+#Container{
+    width: 100%;
+    text-align:center;
+}
+
+#ControlButtons{
+    position: relative;
+}
+
+#gameWorld{
+    display: inline;
+}
+
