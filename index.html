@@ -1,14 +1,31 @@
-﻿
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Game Project Shell</title>
-    <script type="text/javascript" src="./gameengine.js"></script>
+    <title>LIFE</title>
     <script type="text/javascript" src="./assetmanager.js"></script>
+    <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./main.js"></script>
+    <link rel = "stylesheet" href="index.css">
 </head>
 <body>
-    <canvas id="gameWorld" tabindex="1" width="800" height="500" style="border: 1px solid brown; background: lightskyblue"></canvas>
+    <div id="container">
+            <div id=Title>Dominick's Game of Life</div>
+        <div id="Game">
+            <canvas id="gameWorld" width="800" height="800" style="border: 1px solid white; "></canvas>
+        </div>
+        <div id="controlButtons">
+            <button id="grid" width="20" height="10" type="button" onClick="displayGrid()">Grid</button>
+            <button id="grid" width="20" height="10" type="button" onClick="pauseLife()">Pause</button>
+            <button id="grid" width="20" height="10" type="button" onClick="pauseMusic()">pause music</button>
+            <button id="grid" width="20" height="10" type="button" onClick="unpauseMusic()">unpause music</button>
+            <button id="grid" width="20" height="10" type="button" onClick="speedUp()">speed up</button>
+            <button id="grid" width="20" height="10" type="button" onClick="slowDown()">slow down</button>
+            <!-- <button id="grid" width="20" height="10" type="button" onClick="changeYellow()">yellow</button>
+            <button id="grid" width="20" height="10" type="button" onClick="changeBlack()">black</button> -->
+            
+        </div>
+    </div>
 </body>
 </html>
