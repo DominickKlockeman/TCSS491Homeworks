@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +6,14 @@
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./main.js"></script>
+    <script type="text/javascript" src="http://24.16.255.56:8888/socket.io/socket.io.js"></script>
     <link rel = "stylesheet" href="index.css">
 </head>
 <body>
     <div id="container">
             <div id=Title>Dominick's Game of Life</div>
         <div id="Game">
-            <canvas id="gameWorld" width="1000" height="1000" style="border: 1px solid white; "></canvas>
+            <canvas id="gameWorld" width="800" height="800" style="border: 1px solid white; "></canvas>
         </div>
         <div id="controlButtons">
             <button id="grid" width="20" height="10" type="button" onClick="displayGrid()">Grid</button>
@@ -22,6 +22,10 @@
             <button id="grid" width="20" height="10" type="button" onClick="unpauseMusic()">unpause music</button>
             <button id="grid" width="20" height="10" type="button" onClick="speedUp()">speed up</button>
             <button id="grid" width="20" height="10" type="button" onClick="slowDown()">slow down</button>
+            <div id = "text"></div>
+            <input type = "text" id = "savedState">
+            <button id="save" type="button">Save</button>
+            <button id="load" type="button">Load</button>
             <!-- <button id="grid" width="20" height="10" type="button" onClick="changeYellow()">yellow</button>
             <button id="grid" width="20" height="10" type="button" onClick="changeBlack()">black</button> -->
             
